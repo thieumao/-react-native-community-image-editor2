@@ -1,6 +1,6 @@
 {
   "name": "react-native-community-image-editor2",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "React Native Image Editing native modules for iOS & Android",
   "main": "lib/ImageEditor.js",
   "typings": "typings/index.d.ts",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-community/react-native-image-editor.git"
+    "url": "https://github.com/thieumao/-react-native-community-image-editor2.git"
   },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
