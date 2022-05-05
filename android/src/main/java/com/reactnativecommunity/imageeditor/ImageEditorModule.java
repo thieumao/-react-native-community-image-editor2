@@ -326,28 +326,28 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
       // This uses scaling mode COVER
 
       // Where would the crop rect end up within the scaled bitmap?
-      float newWidth, newHeight, newX, newY, scale;
-      float cropRectRatio = mWidth / (float) mHeight;
-      float targetRatio = targetWidth / (float) targetHeight;
-      if (cropRectRatio > targetRatio) {
-        // e.g. source is landscape, target is portrait
-        newWidth = mHeight * targetRatio;
-        newHeight = mHeight;
-        newX = mX + (mWidth - newWidth) / 2;
-        newY = mY;
-        scale = targetHeight / (float) mHeight;
-      } else {
-        // e.g. source is landscape, target is portrait
-        newWidth = mWidth;
-        newHeight = mWidth / targetRatio;
-        newX = mX;
-        newY = mY + (mHeight - newHeight) / 2;
-        scale = targetWidth / (float) mWidth;
-      }
+      // float newWidth, newHeight, newX, newY, scale;
+      // float cropRectRatio = mWidth / (float) mHeight;
+      // float targetRatio = targetWidth / (float) targetHeight;
+      // if (cropRectRatio > targetRatio) {
+      //   // e.g. source is landscape, target is portrait
+      //   newWidth = mHeight * targetRatio;
+      //   newHeight = mHeight;
+      //   newX = mX + (mWidth - newWidth) / 2;
+      //   newY = mY;
+      //   scale = targetHeight / (float) mHeight;
+      // } else {
+      //   // e.g. source is landscape, target is portrait
+      //   newWidth = mWidth;
+      //   newHeight = mWidth / targetRatio;
+      //   newX = mX;
+      //   newY = mY + (mHeight - newHeight) / 2;
+      //   scale = targetWidth / (float) mWidth;
+      // }
 
       // Decode the bitmap. We have to open the stream again, like in the example linked above.
       // Is there a way to just continue reading from the stream?
-      outOptions.inSampleSize = getDecodeSampleSize(mWidth, mHeight, targetWidth, targetHeight);
+      outOptions.inSampleSize = getDecodeSampleSize(mWidth, mHeight, mWidth, mHeight);
       InputStream inputStream = openBitmapInputStream();
 
       Bitmap bitmap;
@@ -363,17 +363,17 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
         }
       }
 
-      int cropX = Math.round(newX / (float) outOptions.inSampleSize);
-      int cropY = Math.round(newY / (float) outOptions.inSampleSize);
-      int cropWidth = Math.round(newWidth / (float) outOptions.inSampleSize);
-      int cropHeight = Math.round(newHeight / (float) outOptions.inSampleSize);
+      // int cropX = Math.round(newX / (float) outOptions.inSampleSize);
+      // int cropY = Math.round(newY / (float) outOptions.inSampleSize);
+      // int cropWidth = Math.round(newWidth / (float) outOptions.inSampleSize);
+      // int cropHeight = Math.round(newHeight / (float) outOptions.inSampleSize);
       float cropScale = (float) 1.0; //scale * outOptions.inSampleSize;
 
       Matrix scaleMatrix = new Matrix();
       scaleMatrix.setScale(cropScale, cropScale);
       boolean filter = true;
 
-      return Bitmap.createBitmap(bitmap, cropX, cropY, cropWidth, cropHeight, scaleMatrix, filter);
+      return Bitmap.createBitmap(bitmap, mX, mY, mWidth, mHeight, null, false);
     }
   }
 
